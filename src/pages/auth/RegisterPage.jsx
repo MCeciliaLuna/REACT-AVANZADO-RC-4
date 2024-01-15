@@ -17,10 +17,6 @@ import { createTheme } from '@mui/material/styles';
 const defaultTheme = createTheme();
 
 export default function RegisterPage() {
-    
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
 
   return (
         <>
