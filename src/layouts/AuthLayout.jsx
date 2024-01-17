@@ -6,20 +6,13 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { FormHelperText } from "@mui/material";
 import styles from "../../styles.module.css";
-import { useReducer, useState } from "react";
-import { authReducer } from "../reducers/AuthReducer";
+import { useContext, useState } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
 export const AuthLayout = () => {
   const [formData, setFormData] = useState({});
 
-  const initialValues = {
-    user: {},
-    isLogged: false,
-    token: "",
-    message: "NO TE HAS LOGUEADO AUN",
-  };
-
-  const [state, dispatch] = useReducer(authReducer, initialValues);
+  const { state, login } = useContext(AuthContext);
 
   const onChangeInput = (e) => {
     const field = e.target.name;
@@ -32,34 +25,17 @@ export const AuthLayout = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    if (
-      formData.username === "mcecilialuna" &&
-      formData.password === "1234Cecilia!"
-    ) {
-      dispatch({
-        type: "LOGIN",
-        payload: {
-          user: {
-            name: "Cecilia",
-            lastname: "Luna",
-            age: 26,
-          },
-          isLogged: true,
-          token: "1234Cecilia!",
-          msg: "Usuario LOGUEADO con éxito.",
-        },
-      });
-    }
+    console.log(state);
+    login(formData.username, formData.password);
   };
 
   const handleLogout = () => {
-    dispatch({
-      type: "LOGOUT",
-      payload: {
-        msg: "Usuario DESLOGUEADO con éxito.",
-      },
-    });
+    // dispatch({
+    //   type: "LOGOUT",
+    //   payload: {
+    //     msg: "Usuario DESLOGUEADO con éxito.",
+    //   },
+    // });
   };
 
   return (
@@ -108,10 +84,6 @@ export const AuthLayout = () => {
           INGRESAR
         </Button>
       </Box>
-      <div>
-        <h3>Data from Reducer:</h3>
-        {JSON.stringify(state, null, 3)}
-      </div>
       <Button onClick={handleLogout} variant="contained" sx={{ mt: 3, mb: 2 }}>
         LOGOUT
       </Button>

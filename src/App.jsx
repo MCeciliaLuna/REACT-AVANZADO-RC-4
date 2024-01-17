@@ -1,12 +1,18 @@
-import { AuthLayout } from "./layouts/AuthLayout"
-import { GeneralLayout } from "./layouts/GeneralLayout"
+import { useContext } from "react";
+import { AuthLayout } from "./layouts/AuthLayout";
+import { GeneralLayout } from "./layouts/GeneralLayout";
+import { AuthContext } from "./contexts/AuthContext";
 
 function App() {
 
+  const { state } = useContext(AuthContext)
+console.log(state.isLogged)
   return (
-    <AuthLayout />
-    // <GeneralLayout />
-  )
+    <>
+      {!state?.isLogged && <AuthLayout />}
+      {state?.isLogged && <GeneralLayout />}
+    </>
+  );
 }
 
-export default App
+export default App;
