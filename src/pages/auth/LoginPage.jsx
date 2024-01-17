@@ -16,7 +16,7 @@ export const LoginPage = () => {
     user: {},
     isLogged: false,
     token: "",
-    message: "",
+    message: "NO TE HAS LOGUEADO AUN",
   };
 
   const [state, dispatch] = useReducer(authReducer, initialValues);
@@ -47,7 +47,7 @@ export const LoginPage = () => {
           },
           isLogged: true,
           token: "1234Cecilia!",
-          msg: "Usuario logueado con éxito.",
+          msg: "Usuario LOGUEADO con éxito.",
         },
       });
     }

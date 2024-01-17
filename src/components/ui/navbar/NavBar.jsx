@@ -1,4 +1,3 @@
-import * as React from "react";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -6,18 +5,12 @@ import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import LogoutIcon from '@mui/icons-material/Logout';
-
 import { AppBar } from "./AppBar";
-import { useContext } from "react";
-import { AuthContext } from "../../../contexts/AuthContext";
 
 
 
 
-export const NavBar = ({ toggleDrawer, open }) => {
-
-
-  const { state, logout } = useContext(AuthContext);
+export const NavBar = () => {
 
   return (
     <AppBar position="absolute" open={open}>
@@ -30,7 +23,7 @@ export const NavBar = ({ toggleDrawer, open }) => {
           edge="start"
           color="inherit"
           aria-label="open drawer"
-          onClick={toggleDrawer}
+          // onClick={toggleDrawer}
           sx={{
             marginRight: "36px",
             ...(open && { display: "none" }),
@@ -49,8 +42,8 @@ export const NavBar = ({ toggleDrawer, open }) => {
         </Typography>
 
        
-          <Typography variant="body1">{ state.user.username }</Typography>
-          <IconButton onClick={logout} color="inherit" style={{ marginLeft:10}}>
+          <Typography variant="body1"></Typography>
+          <IconButton color="inherit" style={{ marginLeft:10}}>
             <LogoutIcon />
           </IconButton>
        

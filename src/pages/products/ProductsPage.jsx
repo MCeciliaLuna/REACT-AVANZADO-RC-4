@@ -1,34 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { Avatar, Box, Grid, IconButton, Paper, Typography } from '@mui/material';
-
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Chip } from '@mui/material';
-import { ProductContext } from '../../contexts/ProductContext';
-// import { useNavigate } from 'react-router-dom';
 
 
 
 
 
 export const ProductsPage = () => {
-
-  const [pageSize, setPageSize] = useState(10);
-  const [page, setPage] = useState(0);
-  const { getAllProducts, state, isLoading } = useContext(ProductContext);
-  const [rowsData, setRowsData] = useState([]);
-//   const navigate = useNavigate();
-
-
-useEffect(() => {
- init();
-}, [])
-
-const init = async() => {
-    const data = await getAllProducts();
-    setRowsData(data);
-}
 
   const getButtonsActions = () => {
 

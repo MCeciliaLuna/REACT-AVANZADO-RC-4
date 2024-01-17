@@ -1,40 +1,120 @@
-import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { FooterLayout } from '../components/ui/FooterLayout';
-import { LoginPage } from '../pages/auth/LoginPage';
-import { Route, Routes } from 'react-router-dom';
-import RegisterPage from '../pages/auth/RegisterPage';
-const defaultTheme = createTheme();
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import { FormHelperText } from "@mui/material";
+import styles from "../../styles.module.css";
+import { useReducer, useState } from "react";
+import { authReducer } from "../reducers/AuthReducer";
 
-export default function AuthLayout() {
-    
+export const AuthLayout = () => {
+  const [formData, setFormData] = useState({});
+
+  const initialValues = {
+    user: {},
+    isLogged: false,
+    token: "",
+    message: "NO TE HAS LOGUEADO AUN",
+  };
+
+  const [state, dispatch] = useReducer(authReducer, initialValues);
+
+  const onChangeInput = (e) => {
+    const field = e.target.name;
+    const value = e.target.value;
+    setFormData({
+      ...formData,
+      [field]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    if (
+      formData.username === "mcecilialuna" &&
+      formData.password === "1234Cecilia!"
+    ) {
+      dispatch({
+        type: "LOGIN",
+        payload: {
+          user: {
+            name: "Cecilia",
+            lastname: "Luna",
+            age: 26,
+          },
+          isLogged: true,
+          token: "1234Cecilia!",
+          msg: "Usuario LOGUEADO con éxito.",
+        },
+      });
+    }
+  };
+
+  const handleLogout = () => {
+    dispatch({
+      type: "LOGOUT",
+      payload: {
+        msg: "Usuario DESLOGUEADO con éxito.",
+      },
+    });
+  };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
+    <div className={styles.form}>
+      <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <LockOutlinedIcon />
+      </Avatar>
+      <Typography component="h1" variant="h5">
+        Sign in
+      </Typography>
+      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="username"
+          label="set mcecilialuna"
+          name="username"
+          autoComplete="username"
+          autoFocus
+          onChange={onChangeInput}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="set 1234Cecilia!"
+          type="password"
+          id="password"
+          autoComplete="current-password"
+          onChange={onChangeInput}
+        />
+
+        <FormHelperText
+          id="component-helper-text"
+          sx={{ color: "red" }}
+        ></FormHelperText>
+
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
         >
-
-          <Routes>
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/register' element={<RegisterPage />} />
-          </Routes>
-          
-
-
-        </Box>
-        <FooterLayout sx={{ mt: 8, mb: 4 }} />
-      </Container>
-    </ThemeProvider>
+          INGRESAR
+        </Button>
+      </Box>
+      <div>
+        <h3>Data from Reducer:</h3>
+        {JSON.stringify(state, null, 3)}
+      </div>
+      <Button onClick={handleLogout} variant="contained" sx={{ mt: 3, mb: 2 }}>
+        LOGOUT
+      </Button>
+    </div>
   );
-}
+};

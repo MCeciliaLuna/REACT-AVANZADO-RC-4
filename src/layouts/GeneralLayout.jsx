@@ -1,15 +1,10 @@
-import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import { FooterLayout, SideBar } from '../components/ui';
 import { NavBar } from '../components/ui';
-import { useContext } from 'react';
-import { AuthContext } from '../contexts/AuthContext';
-import { Route, Routes } from 'react-router-dom';
 import { ProductsPage } from '../pages/products/ProductsPage';
 
 
@@ -17,14 +12,6 @@ const defaultTheme = createTheme();
 
 export function GeneralLayout() {
     
-       
-    const [open, setOpen] = React.useState(true);
-    const { state, logout } = useContext(AuthContext);
-
-
-    const toggleDrawer = () => {
-        setOpen(!open);
-    };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -32,11 +19,11 @@ export function GeneralLayout() {
         <CssBaseline />
 
         <NavBar 
-            toggleDrawer={toggleDrawer}
+            // toggleDrawer={toggleDrawer}
             open={open}
         />
         <SideBar 
-            toggleDrawer={toggleDrawer}
+            // toggleDrawer={toggleDrawer}
             open={open}
         />
         
@@ -55,11 +42,11 @@ export function GeneralLayout() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} >
             
-          <Routes>
+          {/* <Routes>
             <Route path='/products' element={<ProductsPage />} />
             <Route path='/users' element={<h1>USERS PAGE</h1>} />
             <Route path='/sales' element={<h1>SALES PAGE</h1>} />
-          </Routes>
+          </Routes> */}
 
           <FooterLayout sx={{ pt: 4 }} />
           </Container>

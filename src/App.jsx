@@ -1,9 +1,11 @@
-import { LoginPage } from "./pages/auth/LoginPage"
+import { AuthLayout } from "./layouts/AuthLayout"
+import { GeneralLayout } from "./layouts/GeneralLayout"
 
 function App() {
 
   return (
-    <LoginPage />
+    <AuthLayout />
+    // <GeneralLayout />
   )
 }
 
