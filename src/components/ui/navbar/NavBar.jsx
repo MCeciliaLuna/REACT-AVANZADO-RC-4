@@ -10,7 +10,7 @@ import { AppBar } from "./AppBar";
 
 
 
-export const NavBar = () => {
+export const NavBar = ({user, logout}) => {
 
   return (
     <AppBar position="absolute" open={open}>
@@ -38,12 +38,12 @@ export const NavBar = () => {
           noWrap
           sx={{ flexGrow: 1 }}
         >
-          RCDash
+          {user}
         </Typography>
 
        
           <Typography variant="body1"></Typography>
-          <IconButton color="inherit" style={{ marginLeft:10}}>
+          <IconButton onClick={logout} color="inherit" style={{ marginLeft:10}}>
             <LogoutIcon />
           </IconButton>
        

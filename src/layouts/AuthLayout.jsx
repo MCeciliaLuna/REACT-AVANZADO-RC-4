@@ -6,36 +6,18 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { FormHelperText } from "@mui/material";
 import styles from "../../styles.module.css";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import { useForm } from "../hooks/useForm";
 
 export const AuthLayout = () => {
-  const [formData, setFormData] = useState({});
+  const { login } = useContext(AuthContext);
 
-  const { state, login } = useContext(AuthContext);
-
-  const onChangeInput = (e) => {
-    const field = e.target.name;
-    const value = e.target.value;
-    setFormData({
-      ...formData,
-      [field]: value,
-    });
-  };
+  const { formData, onChangeInput } = useForm();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(state);
     login(formData.username, formData.password);
-  };
-
-  const handleLogout = () => {
-    // dispatch({
-    //   type: "LOGOUT",
-    //   payload: {
-    //     msg: "Usuario DESLOGUEADO con éxito.",
-    //   },
-    // });
   };
 
   return (
@@ -84,9 +66,6 @@ export const AuthLayout = () => {
           INGRESAR
         </Button>
       </Box>
-      <Button onClick={handleLogout} variant="contained" sx={{ mt: 3, mb: 2 }}>
-        LOGOUT
-      </Button>
     </div>
   );
 };

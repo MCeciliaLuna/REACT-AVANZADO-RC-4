@@ -6,7 +6,7 @@ import { AuthContext } from "./contexts/AuthContext";
 function App() {
 
   const { state } = useContext(AuthContext)
-console.log(state.isLogged)
+console.log("¿Estás logueado?",state.message)
   return (
     <>
       {!state?.isLogged && <AuthLayout />}

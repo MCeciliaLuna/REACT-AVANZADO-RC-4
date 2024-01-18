@@ -5,12 +5,17 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import { FooterLayout, SideBar } from '../components/ui';
 import { NavBar } from '../components/ui';
-import { ProductsPage } from '../pages/products/ProductsPage';
+import { AuthContext } from "../contexts/AuthContext";
+import { useContext } from 'react';
 
 
 const defaultTheme = createTheme();
 
 export function GeneralLayout() {
+
+const { state, logout } = useContext(AuthContext);
+
+  console.log(state);
     
 
   return (
@@ -21,6 +26,8 @@ export function GeneralLayout() {
         <NavBar 
             // toggleDrawer={toggleDrawer}
             open={open}
+            user={`${state.user.name} ${state.user.lastname}`}
+            logout={logout}
         />
         <SideBar 
             // toggleDrawer={toggleDrawer}

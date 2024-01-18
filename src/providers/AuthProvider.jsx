@@ -30,11 +30,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    dispatch({
+      type: "LOGOUT",
+      payload: {
+        message: "Usuario DESLOGUEADO con éxito.",
+      },
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
         state,
         login,
+        logout,
       }}
     >
       {children}
