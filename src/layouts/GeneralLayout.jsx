@@ -26,12 +26,13 @@ const { state, logout } = useContext(AuthContext);
         <NavBar 
             // toggleDrawer={toggleDrawer}
             open={open}
-            user={`${state.user.name} ${state.user.lastname}`}
+            user={`${state.user.firstName} ${state.user.lastName}`}
             logout={logout}
         />
         <SideBar 
             // toggleDrawer={toggleDrawer}
             open={open}
+            user={state.user.username}
         />
         
         <Box

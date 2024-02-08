@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { authReducer } from "../reducers/AuthReducer";
+import { axiosDash } from "../config/dashAxios";
 
 const initialValues = {
   user: {},
@@ -12,22 +13,29 @@ const initialValues = {
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialValues);
 
-  const login = (username, password) => {
-    if (username === "mcecilialuna" && password === "1234Cecilia!") {
-      dispatch({
-        type: "LOGIN",
-        payload: {
-          user: {
-            name: "Cecilia",
-            lastname: "Luna",
-            age: 26,
-          },
-          isLogged: true,
-          token: "1234Cecilia!",
-          message: "Usuario LOGUEADO con éxito.",
+  const login = async (username, password) => {
+    const { data } = await axiosDash.post("/auth/login", {
+      username: username,
+      password: password,
+    });
+    console.log(data);
+
+    dispatch({
+      type: "LOGIN",
+      payload: {
+        user: {
+          id: data.id,
+          username: data.username,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          gender: data.gender,
         },
-      });
-    }
+        isLogged: true,
+        token: data.token,
+        message: "Usuario LOGUEADO con éxito.",
+      },
+    });
   };
 
   const logout = () => {

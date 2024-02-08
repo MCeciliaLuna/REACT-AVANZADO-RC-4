@@ -16,14 +16,13 @@ export const NavBar = ({user, logout}) => {
     <AppBar position="absolute" open={open}>
       <Toolbar
         sx={{
-          pr: "24px", // keep right padding when drawer closed
+          pr: "24px",
         }}
       >
         <IconButton
           edge="start"
           color="inherit"
           aria-label="open drawer"
-          // onClick={toggleDrawer}
           sx={{
             marginRight: "36px",
             ...(open && { display: "none" }),
@@ -38,7 +37,9 @@ export const NavBar = ({user, logout}) => {
           noWrap
           sx={{ flexGrow: 1 }}
         >
+         <b>
           {user}
+          </b>
         </Typography>
 
        

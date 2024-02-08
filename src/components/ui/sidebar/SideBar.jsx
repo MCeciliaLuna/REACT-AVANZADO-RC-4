@@ -9,13 +9,14 @@ import { Drawer } from'../sidebar/Drawer';
 
 
 
-export const SideBar = ({ toggleDrawer, open}) => {
+export const SideBar = ({user, toggleDrawer, open}) => {
 
 
 
   return (
 
     <Drawer variant="permanent" open={open}>
+      <h3>{user}</h3>
           <Toolbar
             sx={{
               display: 'flex',

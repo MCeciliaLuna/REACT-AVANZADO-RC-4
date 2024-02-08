@@ -66,6 +66,14 @@ export const AuthLayout = () => {
           INGRESAR
         </Button>
       </Box>
+      <div>
+        <hr />
+        <p>
+          username: kminchelle <br />
+          password: 0lelplR
+        </p>
+        <hr />
+      </div>
     </div>
   );
 };
