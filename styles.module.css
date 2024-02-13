@@ -6,3 +6,11 @@
     flex-direction: column;
     margin: 0 auto;
 }
+
+.title{
+    text-align: center;
+}
+
+.productsSection{
+    margin: 1rem 3rem;
+}
