@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
-      gender: data.gender,}
+      gender: data.gender}
     };
 
     localStorage.setItem('localData', JSON.stringify(dataLocal))
@@ -55,28 +55,25 @@ export const AuthProvider = ({ children }) => {
   const checkToken = async () => {
     const token = localStorage.getItem('localData');
     const dataToken = JSON.parse(token);
-
-    if(!token){
+    
+    if(token){
       dispatch({
-        type: 'LOGOUT'
+        type: 'LOGIN',
+        payload: {
+          user: {
+            id: dataToken.id,
+            username: dataToken.user.username,
+            firstName: dataToken.user.firstName,
+            lastName: dataToken.user.lastName,
+            email: dataToken.user.email,
+            gender: dataToken.user.gender,
+          },
+          isLogged: true,
+          token: dataToken.user.token
+        },
       })
     } 
-    dispatch({
-      type: 'LOGIN',
-      payload: {
-        user: {
-          id: dataToken.user.id,
-          username: dataToken.user.username,
-          firstName: dataToken.user.firstName,
-          lastName: dataToken.user.lastName,
-          email: dataToken.user.email,
-          gender: dataToken.user.gender,
-        },
-        isLogged: true,
-        token: dataToken.user.token,
-        message: "Usuario LOGUEADO con éxito.",
-      },
-    })
+
   }
 
   const logout = () => {
@@ -86,6 +83,7 @@ export const AuthProvider = ({ children }) => {
         message: "Usuario DESLOGUEADO con éxito.",
       },
     });
+    localStorage.clear('localData')
   };
 
   return (
