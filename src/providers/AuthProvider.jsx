@@ -3,6 +3,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { authReducer } from "../reducers/AuthReducer";
 import { axiosDash } from "../config/dashAxios";
 
+
 const initialValues = {
   user: {},
   isLogged: false,
@@ -19,6 +20,19 @@ export const AuthProvider = ({ children }) => {
       password: password,
     });
     console.log(data);
+
+    const dataLocal = {
+      user : {
+      token: data.token,
+      id: data.id,
+      username: data.username,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      gender: data.gender,}
+    };
+
+    localStorage.setItem('localData', JSON.stringify(dataLocal))
 
     dispatch({
       type: "LOGIN",
@@ -38,6 +52,33 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  const checkToken = async () => {
+    const token = localStorage.getItem('localData');
+    const dataToken = JSON.parse(token);
+
+    if(!token){
+      dispatch({
+        type: 'LOGOUT'
+      })
+    } 
+    dispatch({
+      type: 'LOGIN',
+      payload: {
+        user: {
+          id: dataToken.user.id,
+          username: dataToken.user.username,
+          firstName: dataToken.user.firstName,
+          lastName: dataToken.user.lastName,
+          email: dataToken.user.email,
+          gender: dataToken.user.gender,
+        },
+        isLogged: true,
+        token: dataToken.user.token,
+        message: "Usuario LOGUEADO con éxito.",
+      },
+    })
+  }
+
   const logout = () => {
     dispatch({
       type: "LOGOUT",
@@ -53,6 +94,7 @@ export const AuthProvider = ({ children }) => {
         state,
         login,
         logout,
+        checkToken
       }}
     >
       {children}
