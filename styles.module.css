@@ -14,3 +14,12 @@
 .productsSection{
     margin: 1rem 3rem;
 }
+
+.imageProduct{
+    height: auto;
+    width: 9vw;
+}
+
+.rowProduct{
+    width: 10vw;
+}
