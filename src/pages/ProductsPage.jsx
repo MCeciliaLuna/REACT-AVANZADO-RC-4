@@ -5,8 +5,8 @@ import { NavBar } from "../components/ui";
 import { AuthContext } from "../contexts/AuthContext";
 import { useContext } from "react";
 import { Box } from "@mui/material";
-import ProductList from "../components/ui/productsSection/ProductsList";
 import styles from "../../styles.module.css";
+import ProductsList from "../components/ui/productsSection/ProductsList";
 
 export const ProductsPage = () => {
   const { state, logout } = useContext(AuthContext);
@@ -38,7 +38,7 @@ export const ProductsPage = () => {
         <Toolbar />
         <h2 className={styles.title}>Productos:</h2>
         <div className={styles.productsSection}>
-          <ProductList />
+        <ProductsList />
         </div>
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <FooterLayout sx={{ pt: 4 }} />

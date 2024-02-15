@@ -3,6 +3,7 @@ export const ProductReducer = (state = {}, action) => {
     case "ALL-PRODUCTS":
       return {
         ...state,
+        isLoading: false,
         products: action.payload.products,
 
       };
