@@ -3,7 +3,6 @@ import { AuthContext } from "../contexts/AuthContext";
 import { authReducer } from "../reducers/AuthReducer";
 import { axiosDash } from "../config/dashAxios";
 
-
 const initialValues = {
   user: {},
   isLogged: false,
@@ -22,17 +21,18 @@ export const AuthProvider = ({ children }) => {
     console.log(data);
 
     const dataLocal = {
-      user : {
-      token: data.token,
-      id: data.id,
-      username: data.username,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      gender: data.gender}
+      user: {
+        token: data.token,
+        id: data.id,
+        username: data.username,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        gender: data.gender,
+      },
     };
 
-    localStorage.setItem('localData', JSON.stringify(dataLocal))
+    localStorage.setItem("localData", JSON.stringify(dataLocal));
 
     dispatch({
       type: "LOGIN",
@@ -53,12 +53,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   const checkToken = async () => {
-    const token = localStorage.getItem('localData');
+    const token = localStorage.getItem("localData");
     const dataToken = JSON.parse(token);
-    
-    if(token){
+
+    if (token) {
       dispatch({
-        type: 'LOGIN',
+        type: "LOGIN",
         payload: {
           user: {
             id: dataToken.id,
@@ -69,12 +69,11 @@ export const AuthProvider = ({ children }) => {
             gender: dataToken.user.gender,
           },
           isLogged: true,
-          token: dataToken.user.token
+          token: dataToken.user.token,
         },
-      })
-    } 
-
-  }
+      });
+    }
+  };
 
   const logout = () => {
     dispatch({
@@ -83,7 +82,7 @@ export const AuthProvider = ({ children }) => {
         message: "Usuario DESLOGUEADO con éxito.",
       },
     });
-    localStorage.clear('localData')
+    localStorage.clear("localData");
   };
 
   return (
@@ -92,7 +91,7 @@ export const AuthProvider = ({ children }) => {
         state,
         login,
         logout,
-        checkToken
+        checkToken,
       }}
     >
       {children}
