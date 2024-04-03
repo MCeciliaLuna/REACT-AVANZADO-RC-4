@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { authReducer } from "../reducers/AuthReducer";
 import { axiosDash } from "../config/dashAxios";
+import { types } from "../types/types";
 
 const initialValues = {
   user: {},
@@ -13,37 +14,35 @@ const initialValues = {
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialValues);
 
-  const login = async (username, password) => {
-    const { data } = await axiosDash.post("/auth/login", {
-      username: username,
-      password: password,
+  const login = async (email, password) => {
+    const { data } = await axiosDash.post("/login", {
+      email,
+      password,
     });
     console.log(data);
 
     const dataLocal = {
       user: {
-        token: data.token,
-        id: data.id,
+        id: data._id,
         username: data.username,
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
-        gender: data.gender,
       },
+      token: data.token,
     };
 
     localStorage.setItem("localData", JSON.stringify(dataLocal));
 
     dispatch({
-      type: "LOGIN",
+      type: types.auth.login,
       payload: {
         user: {
-          id: data.id,
+          id: data._id,
           username: data.username,
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
-          gender: data.gender,
         },
         isLogged: true,
         token: data.token,
@@ -58,15 +57,14 @@ export const AuthProvider = ({ children }) => {
 
     if (token) {
       dispatch({
-        type: "LOGIN",
+        type: types.auth.login,
         payload: {
           user: {
-            id: dataToken.id,
-            username: dataToken.user.username,
-            firstName: dataToken.user.firstName,
-            lastName: dataToken.user.lastName,
-            email: dataToken.user.email,
-            gender: dataToken.user.gender,
+            id: dataToken._id,
+            username: dataToken.username,
+            firstName: dataToken.firstName,
+            lastName: dataToken.lastName,
+            email: dataToken.email,
           },
           isLogged: true,
           token: dataToken.user.token,
@@ -77,7 +75,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     dispatch({
-      type: "LOGOUT",
+      type: types.auth.logout,
       payload: {
         message: "Usuario DESLOGUEADO con éxito.",
       },

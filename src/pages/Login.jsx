@@ -18,7 +18,7 @@ export const Login = () => {
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      login(formData.username, formData.password);
+      login(formData.email, formData.password);
     };
 
   return (
@@ -34,10 +34,10 @@ export const Login = () => {
             margin="normal"
             required
             fullWidth
-            id="username"
-            label="set kminchelle"
-            name="username"
-            autoComplete="username"
+            id="email"
+            label="set lunama.cecilia@gmail.com"
+            name="email"
+            autoComplete="email"
             autoFocus
             onChange={onChangeInput}
           />
@@ -46,7 +46,7 @@ export const Login = () => {
             required
             fullWidth
             name="password"
-            label="set 0lelplR"
+            label="set Cecilia1234"
             type="password"
             id="password"
             autoComplete="current-password"
@@ -70,8 +70,8 @@ export const Login = () => {
         <div>
           <hr />
           <p>
-            username: kminchelle <br />
-            password: 0lelplR
+            email: lunama.cecilia@gmail.com <br />
+            password: Cecilia1234
           </p>
           <hr />
         </div>
