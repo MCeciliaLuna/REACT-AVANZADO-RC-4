@@ -21,34 +21,33 @@ export const AuthProvider = ({ children }) => {
     });
     console.log(data);
 
+    if(!data.token){
+      dispatch({
+        type: types.auth.logout,
+        payload: {
+          message: "USUARIO INCORRECTO",
+        },
+      });
+      return
+    }
+
     const dataLocal = {
-      user: {
-        id: data._id,
-        username: data.username,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-      },
+      user: data.user,
       token: data.token,
     };
 
-    localStorage.setItem("localData", JSON.stringify(dataLocal));
-
+    
     dispatch({
       type: types.auth.login,
       payload: {
-        user: {
-          id: data._id,
-          username: data.username,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-        },
+        user: data.user,
         isLogged: true,
         token: data.token,
         message: "Usuario LOGUEADO con éxito.",
       },
     });
+
+    localStorage.setItem("localData", JSON.stringify(dataLocal));
   };
 
   const checkToken = async () => {
