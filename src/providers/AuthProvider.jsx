@@ -21,14 +21,15 @@ export const AuthProvider = ({ children }) => {
     });
     console.log(data);
 
-    if(!data.token){
+    if (!data.token) {
       dispatch({
         type: types.auth.logout,
         payload: {
           message: "USUARIO INCORRECTO",
         },
       });
-      return
+      alert(data.message);
+      return;
     }
 
     const dataLocal = {
@@ -36,7 +37,6 @@ export const AuthProvider = ({ children }) => {
       token: data.token,
     };
 
-    
     dispatch({
       type: types.auth.login,
       payload: {
@@ -46,7 +46,6 @@ export const AuthProvider = ({ children }) => {
         message: "Usuario LOGUEADO con éxito.",
       },
     });
-
     localStorage.setItem("localData", JSON.stringify(dataLocal));
   };
 
@@ -68,6 +67,13 @@ export const AuthProvider = ({ children }) => {
           isLogged: true,
           token: dataToken.user.token,
         },
+      });
+      axiosDash.interceptors.request.use((config) => {
+        config.headers = {
+          ...config.headers,
+          "token": dataToken.token,
+        };
+        return config;
       });
     }
   };
